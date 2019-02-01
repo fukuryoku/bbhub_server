@@ -1,0 +1,25 @@
+{
+  "name": "bb_hub",
+  "version": "0.5.0",
+  "description": "e-learning platform",
+  "main": "index.js",
+  "author": "fukuroku apps",
+  "dependencies": {
+    "async": "^0.2.10",
+    "bcrypt": "^3.0.3",
+    "body-parser": "^1.18.3",
+    "cors": "^2.8.5",
+    "dotenv": "^6.2.0",
+    "express": "^4.16.4",
+    "helmet": "^3.15.0",
+    "jsonwebtoken": "^8.4.0",
+    "mongoose": "^5.4.5",
+    "nodemailer": "^5.1.1",
+    "nodemailer-express-handlebars": "^3.0.0"
+  },
+  "scripts": {
+    "start": "node index.js"
+  },
+  "devDependencies": {},
+  "license": "ISC"
+}
