@@ -56,12 +56,13 @@ exports.signin = async function(req, res, next) {
 exports.signup = async function(req, res, next) {
   try {
     let user = await db.User.create(req.body);
-    let { id, username, profileImageUrl } = user;
+    let { id, username, profileImageUrl, progress } = user;
     let token = jwt.sign(
       {
         id,
         username,
-        profileImageUrl
+        profileImageUrl,
+        progress
       },
       process.env.SECRET_KEY
     );
@@ -69,7 +70,8 @@ exports.signup = async function(req, res, next) {
       id,
       username,
       profileImageUrl,
-      token
+      token,
+      progress
     });
   } catch (err) {
     if (err.code === 11000) {
