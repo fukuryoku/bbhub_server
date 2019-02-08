@@ -80,12 +80,12 @@ app.post('/contactform', function (req, res) {
     var smtpTransport = nodemailer.createTransport({
        service: "Gmail", 
        auth: {
-       user: 'Hibiki.Tea.Store@gmail.com',
-       pass: 'hb_FLY_100%'
+       user: process.env.EMAIL_USER,
+       pass: process.env.EMAIL_PASS
        }});
 
     var maillist = [
-      'v.lokaichuk@gmail.com'
+        process.env.EMAIL_USER
     ];
 
 

@@ -11,8 +11,8 @@ const hbs = require('nodemailer-express-handlebars');
 var smtpTransport = nodemailer.createTransport({
   service: 'Gmail', 
   auth: {
-    user: 'hibiki.tea.store@gmail.com',
-    pass: 'hb_FLY_100%'//process.env.GMAILPW
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS
   }
 });
 
@@ -75,7 +75,7 @@ exports.signup = async function(req, res, next) {
     });
   } catch (err) {
     if (err.code === 11000) {
-      err.message = "Sorry, that username and/or email is taken";
+      err.message = " Имя пользователя или почта уже заняты";
     }
     return next({
       status: 400,
@@ -114,17 +114,17 @@ exports.forgot = function(req, res) {
 
       var mailOptions = {
         to: user.email,
-        from: 'Hibiki.Tea.Store@gmail.com',
-        subject: 'HIBIKI, восстановление пароля',
+        from: 'BBHUB.CC',
+        subject: 'BBHUB, восстановление пароля',
         text: 'Вы получили это письмо тк Вы пытаетесь восстановить пароль к Вашему аккаунту в магазине чая HIBIKI.\n\n' +
           'Перейдите по ссылке для восстановления пароля:\n\n' +
-          'http://localhost:3000/auth/reset_password?token=' + token + '\n\n' +
+          'http://' + req.headers.host + '/reset/' + token + '\n\n' +
           'Если Вы не продолжите смену пароля, Ваш пароль останется прежним.\n'};
       
 
       smtpTransport.sendMail(mailOptions, function(err) {
         if (!err) {
-          return res.json({ message: 'Kindly check your email for further instructions' });
+          return res.json({ message: 'Инструкции по сбросу пароля были отправлены вам на почту' });
         } else {
           return done(err);
         }
@@ -157,9 +157,9 @@ exports.reset = function(req, res, next) {
             var smtpTransport = nodemailer.createTransport({
               service: 'Gmail', 
               auth: {
-                user: 'Hibiki.Tea.Store@gmail.com',
-                pass: 'hb_FLY_100%'//process.env.GMAILPW
-              }
+                user: process.env.EMAIL_USER,
+                pass: process.env.EMAIL_PASS
+                          }
             });
             var mailOptions = {
               to: user.email,

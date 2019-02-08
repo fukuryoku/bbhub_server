@@ -2,8 +2,8 @@ const mongoose = require("mongoose");
 mongoose.set('debug', true);
 mongoose.Propmise = Promise;
 
-// mongoose.connect("mongodb://admin:owl313777@ds155164.mlab.com:55164/bbhub",{
-    mongoose.connect(process.env.MONGO_URL || "mongodb://admin:owl313777@ds155164.mlab.com:55164/bbhub",{
+// mongoose.connect("mongodb://__:__@ds155164.mlab.com:55164/bbhub",{
+    mongoose.connect(process.env.MONGO_URL,{
     keepAlive:true,
     useNewUrlParser: true
 });
