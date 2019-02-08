@@ -118,7 +118,9 @@ exports.forgot = function(req, res) {
         subject: 'BBHUB, восстановление пароля',
         text: 'Вы получили это письмо тк Вы пытаетесь восстановить пароль к Вашему аккаунту в магазине чая HIBIKI.\n\n' +
           'Перейдите по ссылке для восстановления пароля:\n\n' +
-          'http://' + req.headers.host + '/reset/' + token + '\n\n' +
+          'http://bbhub.cc/reset/' + token + '\n\n' +
+          // 'http://' + req.headers.host + '/reset/' + token + '\n\n' +
+
           'Если Вы не продолжите смену пароля, Ваш пароль останется прежним.\n'};
       
 
@@ -163,10 +165,10 @@ exports.reset = function(req, res, next) {
             });
             var mailOptions = {
               to: user.email,
-              from: 'Hibiki.Tea.Store@gmail.com',
-              subject: 'Your password has been changed',
+              from: 'BBHUB.CC',
+              subject: 'Ваш пароль был изменен',
               text: 'Hello,\n\n' +
-                'Отлично, Ваш пароль изменён! ' + user.email + '.\n'
+                'Отлично, Ваш пароль изменён! ' + user.email + ' новый пароль: '+ user.password +'.\n'
             };
             smtpTransport.sendMail(mailOptions, function(err) {
               done(err);
@@ -176,12 +178,12 @@ exports.reset = function(req, res, next) {
         });
       } else {
         return res.status(422).send({
-          message: 'Passwords do not match'
+          message: 'Пароли не совпадают'
         });
       }
     } else {
       return res.status(400).send({
-        message: 'Password reset token is invalid or has expired.'
+        message: 'Ссылка восстановления недействительна или просрочена'
       });
     }
   });
