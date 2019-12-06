@@ -165,25 +165,25 @@ exports.reset = function(req, res, next) {
             });
             var mailOptions = {
               to: user.email,
-              from: 'BBHUB.CC',
-              subject: 'Ваш пароль был изменен',
+              from: 'Hibiki.Tea.Store@gmail.com',
+              subject: 'Ваш пароль был изменен ',
               text: 'Hello,\n\n' +
-                'Отлично, Ваш пароль изменён! ' + user.email + ' новый пароль: '+ user.password +'.\n'
+                'Отлично, Ваш пароль изменён! ' + user.email + '.\n'
             };
             smtpTransport.sendMail(mailOptions, function(err) {
               done(err);
             });
-            console.log('done')
+            return next
           }
         });
       } else {
         return res.status(422).send({
-          message: 'Пароли не совпадают'
+          message: 'Passwords do not match'
         });
       }
     } else {
       return res.status(400).send({
-        message: 'Ссылка восстановления недействительна или просрочена'
+        message: 'Password reset token is invalid or has expired.'
       });
     }
   });

@@ -1,4 +1,4 @@
-require("dotenv").load();
+require("dotenv")
 var jwt = require("jsonwebtoken");
 
 exports.loginRequired = function(req, res, next) {
